@@ -42,9 +42,10 @@ class AccountController extends Controller
         $acc=new Account();
         $acc->email=$request->get('email');
         $acc->name=$request->get('name');
-        $acc->password=$request->get('password');
+        $hashedPw = sha1($request->get('password'));
+        $salt = str_random(6);
+        $acc -> password = $hashedPw.$salt;
         $acc->save();
-
         return view('dangkythanhcong');
     }
 
